@@ -1,11 +1,11 @@
 package com.app.repos;
 
-import com.app.domain.Film;
+import com.app.domain.film.FilmDomain;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface FilmRepo extends CrudRepository<Film, Long> {
+public interface FilmRepo extends CrudRepository<FilmDomain, Long> {
 
-    List<Film> findByName(String name);
+    List<FilmDomain> findByName(String name);
 }

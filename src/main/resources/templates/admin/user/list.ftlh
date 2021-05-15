@@ -1,4 +1,4 @@
-<#import "admin_layout.ftlh" as a>
+<#import "../admin_layout.ftlh" as a>
 
 <@a.admin>
     <!-- Content Header (Page header) -->
@@ -21,6 +21,23 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            ${name}<br>
+            ${mainImage.originalFilename}<br>
+            ${trailerLink}<br>
+            ${description}<br>
+            <#list type as t>
+                ${t}
+            </#list><br>
+            <#list galleryImages as g>
+                ${g.originalFilename}
+            </#list><br>
+            ${seoUrl}<br>
+            ${seoTitle}<br>
+            ${seoKeywords}<br>
+            ${seoDescription}<br>
+
+
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -41,7 +58,7 @@
                                 <tbody>
                                 <tr>
                                     <td>1.</td>
-                                    <td>Update software</td>
+                                    <td>${name}</td>
                                     <td>
                                         <div class="progress progress-xs">
                                             <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
@@ -51,7 +68,7 @@
                                 </tr>
                                 <tr>
                                     <td>2.</td>
-                                    <td>Clean database</td>
+                                    <td>${trailerLink}</td>
                                     <td>
                                         <div class="progress progress-xs">
                                             <div class="progress-bar bg-warning" style="width: 70%"></div>
@@ -61,7 +78,9 @@
                                 </tr>
                                 <tr>
                                     <td>3.</td>
-                                    <td>Cron job running</td>
+                                    <td>
+                                        ${description}
+                                    </td>
                                     <td>
                                         <div class="progress progress-xs progress-striped active">
                                             <div class="progress-bar bg-primary" style="width: 30%"></div>
@@ -71,7 +90,13 @@
                                 </tr>
                                 <tr>
                                     <td>4.</td>
-                                    <td>Fix and squish bugs</td>
+
+                                    <td>
+                                        <#list type as t>
+                                            <p>${t}</p>
+                                        </#list>
+                                    </td>
+
                                     <td>
                                         <div class="progress progress-xs progress-striped active">
                                             <div class="progress-bar bg-success" style="width: 90%"></div>

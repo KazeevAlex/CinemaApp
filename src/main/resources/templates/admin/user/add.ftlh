@@ -1,4 +1,4 @@
-<#import "admin_layout.ftlh" as a>
+<#import "../admin_layout.ftlh" as a>
 
 <@a.admin>
     <!-- Content Header (Page header) -->

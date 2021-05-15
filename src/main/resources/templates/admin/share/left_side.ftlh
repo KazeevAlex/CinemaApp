@@ -33,19 +33,37 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-                <li class="nav-item">
-                    <a href="/admin/dashboard/" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </a>
-                </li>
-
+                <!-- Film Category -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <i class="fas fa-circle nav-icon"></i>
+                        <p>
+                            Film
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Film</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/film/add" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Film</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.film category -->
+
+
+                <!-- User Category -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-circle nav-icon"></i>
                         <p>
                             User
                             <i class="right fas fa-angle-left"></i>
@@ -53,19 +71,20 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/admin/user/list/" class="nav-link">
+                            <a href="/admin/user/list" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>List User</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/user/add/" class="nav-link">
+                            <a href="/admin/user/add" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add User</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+                <!-- /.user category -->
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

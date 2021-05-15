@@ -1,4 +1,4 @@
-<#macro admin>
+<#macro admin style="share/style.ftlh" script="share/script.ftlh">
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -6,9 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Admin</title>
-        <#include "share/style.ftlh">
+        <#include "${style}">
+
     </head>
-    <body class="hold-transition sidebar-mini layout-fixed">
+<#--    <body class="hold-transition sidebar-mini layout-fixed">-->
+    <body class="dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <#include "share/header.ftlh">
         <#include "share/left_side.ftlh">
@@ -19,8 +21,9 @@
         </div>
 
         <#include "share/footer.ftlh">
-        <#include "share/script.ftlh">
     </div>
+
+    <#include "${script}">
     </body>
     </html>
 </#macro>

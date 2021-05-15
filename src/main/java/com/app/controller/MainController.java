@@ -1,7 +1,7 @@
 package com.app.controller;
 
-import com.app.domain.Film;
-import com.app.domain.User;
+import com.app.domain.film.FilmDomain;
+import com.app.domain.user.User;
 import com.app.repos.FilmRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -34,7 +33,7 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<Film> films = filmRepo.findAll();
+        Iterable<FilmDomain> films = filmRepo.findAll();
 
         if(filter != null && !filter.isEmpty())
             films = filmRepo.findByName(filter);
@@ -54,7 +53,7 @@ public class MainController {
             @RequestParam String description, Map<String, Object> model,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        Film film = new Film(name, description, user);
+        FilmDomain filmDomain = new FilmDomain(name, description, user);
 
         if(file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
@@ -68,12 +67,12 @@ public class MainController {
 
             file.transferTo(new File(uploadPath + "/" + resultFilename));
 
-            film.setFilename(resultFilename);
+            filmDomain.setMainImage(resultFilename);
         }
 
-        filmRepo.save(film);
+        filmRepo.save(filmDomain);
 
-        Iterable<Film> films = filmRepo.findAll();
+        Iterable<FilmDomain> films = filmRepo.findAll();
         model.put("films", films);
 
         return "main";

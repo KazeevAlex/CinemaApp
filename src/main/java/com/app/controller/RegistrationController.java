@@ -1,7 +1,7 @@
 package com.app.controller;
 
-import com.app.domain.Role;
-import com.app.domain.User;
+import com.app.domain.user.Role;
+import com.app.domain.user.User;
 import com.app.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
