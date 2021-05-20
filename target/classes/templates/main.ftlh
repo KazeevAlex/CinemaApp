@@ -33,19 +33,19 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <#list films as filmDomain>
+        <#list films as film>
             <div class="card my-3 me-2" style="width: 18rem;">
                 <div class="mt-1">
-                    <#if filmDomain.mainImage??>
-                        <img class="card-img-top" src="/img/${filmDomain.mainImage}">
+                    <#if film.mainImage??>
+                        <img class="card-img-top" src="/img/${film.mainImage}">
                     </#if>
                 </div>
                 <div class="m-2">
-                    <h5 class="card-title">${filmDomain.name}</h5>
-                    <p class="card-text">${filmDomain.description}</p>
+                    <h5 class="card-title">${film.name}</h5>
+                    <p class="card-text">${film.description}</p>
                 </div>
                 <div class="card-footer">
-                    ${filmDomain.authorName}
+                    ${film.authorName}
                 </div>
             </div>
         <#else>

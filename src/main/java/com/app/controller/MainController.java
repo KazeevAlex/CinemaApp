@@ -5,6 +5,10 @@ import com.app.domain.user.User;
 import com.app.repos.FilmRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,13 +36,16 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<FilmDomain> films = filmRepo.findAll();
+    public String main(@RequestParam(required = false, defaultValue = "") String filter,
+                       Model model,
+                       @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
+                       ) {
+        Page<FilmDomain> films = filmRepo.findAll(pageable);
 
         if(filter != null && !filter.isEmpty())
-            films = filmRepo.findByName(filter);
+            films = filmRepo.findByName(filter, pageable);
         else
-            films = filmRepo.findAll();
+            films = filmRepo.findAll(pageable);
 
         model.addAttribute("films", films);
         model.addAttribute("filter", filter);
@@ -50,7 +57,8 @@ public class MainController {
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String name,
-            @RequestParam String description, Map<String, Object> model,
+            @RequestParam String description,
+            Map<String, Object> model,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         FilmDomain filmDomain = new FilmDomain(name, description, user);

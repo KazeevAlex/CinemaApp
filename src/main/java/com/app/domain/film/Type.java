@@ -13,8 +13,8 @@ public enum Type {
         return alias;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return alias;
-    }
+    }*/
 }
