@@ -13,9 +13,17 @@ public class HallDomain {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
     private String description;
+    private String schemaImage;
+
+    @Column(name = "top_banner")
+    private String topBanner;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "hall_gallery_images", joinColumns = @JoinColumn(name = "hall_id"))
+    @Column(name = "gallery_image")
+    private Set<String> galleryImages;
 
     @OneToMany(mappedBy = "hall")
     private Set<PlaceDomain> places;

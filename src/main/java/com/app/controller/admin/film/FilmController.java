@@ -21,7 +21,6 @@ import java.util.Set;
 public class FilmController {
 
     FilmService filmService;
-
     @Autowired
     public FilmController(FilmService filmService) {
         this.filmService = filmService;
@@ -53,6 +52,7 @@ public class FilmController {
         FilmDomain filmDomain = new FilmDomain(name, types, trailerLink, description, seoBlock);
 
         filmService.saveFilmImages(filmDomain, mainImage, galleryImages);
+
         filmService.saveFilm(filmDomain);
 
         return "redirect:/admin/film/list?size=8";

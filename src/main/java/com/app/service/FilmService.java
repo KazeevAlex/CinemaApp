@@ -20,7 +20,6 @@ public class FilmService {
     private String uploadPath;
 
     FilmRepo filmRepo;
-
     @Autowired
     public FilmService(FilmRepo filmRepo) {
         this.filmRepo = filmRepo;
@@ -31,6 +30,7 @@ public class FilmService {
     }
 
     public void deleteFilmById(Long filmId) {
+        //add images deleting
         filmRepo.deleteById(filmId);
     }
 
