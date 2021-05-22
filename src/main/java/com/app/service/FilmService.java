@@ -30,7 +30,12 @@ public class FilmService {
     }
 
     public void deleteFilmById(Long filmId) {
-        //add images deleting
+        FilmDomain filmDomain = filmRepo.findById(filmId).get();
+
+        deleteImages(filmDomain.getMainImage());
+        for (String imageString : filmDomain.getGalleryImages())
+            deleteImages(imageString);
+
         filmRepo.deleteById(filmId);
     }
 

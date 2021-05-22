@@ -44,9 +44,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/admin/cinema/list?page=0&size=8" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>List Cinema</p>
+                                <p>Cinema List</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -72,7 +72,7 @@
                         <li class="nav-item">
                             <a href="/admin/film/list?page=0&size=8" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>List Film</p>
+                                <p>Film List</p>
                             </a>
                         </li>
                         <li class="nav-item">

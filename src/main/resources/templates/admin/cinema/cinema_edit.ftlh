@@ -7,13 +7,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Add Cinema</h1>
+                    <h1>Edit Cinema</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">Cinema</li>
-                        <li class="breadcrumb-item active">Add</li>
+                        <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" action="add" enctype="multipart/form-data" id="filmForm"
+                <form method="post" action="../edit/${cinemaId}" enctype="multipart/form-data" id="filmForm"
                       onsubmit="return validateForm()">
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-one-tabContent">
@@ -67,7 +67,7 @@
                                         <div class="form-group">
                                             <label>Cinema Name</label>
                                             <input type="text" name="name" class="form-control requiredField"
-                                                   placeholder="Enter cinema name ...">
+                                                   value="${cinema.getName()}" placeholder="Enter cinema name ...">
                                         </div>
                                     </div>
                                     <!-- /.col -->
@@ -78,10 +78,11 @@
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" name="logoImage"
-                                                           class="custom-file-input requiredField"
+                                                           class="custom-file-input"
                                                            id="exampleInputFile">
-                                                    <label class="custom-file-label" for="exampleInputFile">Select the
-                                                        logo image ...</label>
+                                                    <label class="custom-file-label" for="exampleInputFile">
+                                                        To leave the logo image unchanged, leave this field blank...
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -98,10 +99,11 @@
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" name="topBannerImage"
-                                                           class="custom-file-input requiredField"
+                                                           class="custom-file-input"
                                                            id="exampleInputFile">
-                                                    <label class="custom-file-label" for="exampleInputFile">Select the
-                                                        top banner image ...</label>
+                                                    <label class="custom-file-label" for="exampleInputFile">
+                                                        To leave the top banner image unchanged, leave this field blank...
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -114,7 +116,7 @@
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" name="galleryImages"
-                                                           class="custom-file-input requiredField" id="exampleInputFile"
+                                                           class="custom-file-input" id="exampleInputFile"
                                                            multiple>
                                                     <label class="custom-file-label" for="exampleInputFile">To select
                                                         multiple files, hold down the CTRL or SHIFT key while selecting
@@ -131,14 +133,14 @@
                                 <div class="form-group">
                                     <label>Description</label>
                                     <textarea class="form-control" rows="3" name="description"
-                                              placeholder="Enter filmDomain description ..."></textarea>
+                                              placeholder="Enter filmDomain description ...">${cinema.getDescription()}</textarea>
                                 </div>
 
                                 <!-- Conditions -->
                                 <div class="form-group">
                                     <label>Conditions</label>
                                     <textarea class="form-control" rows="3" name="conditions"
-                                              placeholder="Enter filmDomain description ..."></textarea>
+                                              placeholder="Enter filmDomain description ...">${cinema.getConditions()}</textarea>
                                 </div>
 
                             </div>
@@ -199,10 +201,14 @@
                                             <select name="city" class="select2 requiredField"
                                                     data-placeholder="To select multiple types at once, hold down the CTRL"
                                                     style="width: 100%;">
-                                                <option value="Odessa">Odessa</option>
-                                                <option value="Dnepr">Dnepr</option>
-                                                <option value="Kiev">Kiev</option>
-                                                <option value="Kharkov">Kharkov</option>
+                                                <#assign cities = ["Odessa", "Dnepr", "Kiev", "Kharkov"]>
+                                                <#list cities as city>
+                                                    <#if city == cinema.getAddress().getCity()>
+                                                        <option selected value="${city}">${city}</option>
+                                                    <#else>
+                                                        <option value="${city}">${city}</option>
+                                                    </#if>
+                                                </#list>
                                             </select>
                                         </div>
                                     </div>
@@ -211,6 +217,7 @@
                                         <div class="form-group">
                                             <label>Street</label>
                                             <input type="text" name="street" class="form-control"
+                                                   value="${cinema.getAddress().getStreet()}"
                                                    placeholder="Enter street ...">
                                         </div>
                                     </div>
@@ -219,6 +226,7 @@
                                         <div class="form-group">
                                             <label>Build</label>
                                             <input type="text" name="build" class="form-control"
+                                                   value="${cinema.getAddress().getBuild()}"
                                                    placeholder="Enter build ...">
                                         </div>
                                     </div>
@@ -235,6 +243,7 @@
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
                                                 <input type="text" name="mainPhone" class="form-control"
+                                                       value="${cinema.getAddress().getMainPhone()}"
                                                        data-inputmask='"mask": "(999) 999-9999"' data-mask>
                                             </div>
                                         </div>
@@ -248,6 +257,7 @@
                                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                                 </div>
                                                 <input type="text" name="additionalPhone" class="form-control"
+                                                       value="${cinema.getAddress().getAdditionalPhone()}"
                                                        data-inputmask='"mask": "(999) 999-9999"' data-mask>
                                             </div>
                                         </div>
@@ -261,6 +271,7 @@
                                                     <span class="input-group-text">@</span>
                                                 </div>
                                                 <input type="email" name="email" class="form-control"
+                                                       value="${cinema.getAddress().getEmail()}"
                                                        id="exampleInputEmail1" placeholder="Enter email">
                                             </div>
                                         </div>
@@ -272,6 +283,7 @@
                                 <div class="form-group">
                                     <label>Map Coordinate</label>
                                     <input type="text" name="mapCoordinate" class="form-control"
+                                           value="${cinema.getAddress().getMapCoordinate()}"
                                            placeholder="Enter map coordinate ...">
                                 </div>
 
@@ -282,22 +294,25 @@
                                 <div class="form-group">
                                     <label>URL</label>
                                     <input type="text" name="seoUrl" class="form-control"
+                                           value="${cinema.getSeoBlock().getUrl()}"
                                            placeholder="Enter SEO URL ...">
                                 </div>
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="text" name="seoTitle" class="form-control"
+                                           value="${cinema.getSeoBlock().getTitle()}"
                                            placeholder="Enter SEO Title ...">
                                 </div>
                                 <div class="form-group">
                                     <label>Keywords</label>
                                     <input type="text" name="seoKeywords" class="form-control"
+                                           value="${cinema.getSeoBlock().getKeywords()}"
                                            placeholder="Enter SEO keywords ...">
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
                                     <textarea name="seoDescription" class="form-control" rows="3"
-                                              placeholder="Enter SEO description ..."></textarea>
+                                              placeholder="Enter SEO description ...">${cinema.getSeoBlock().getDescription()}</textarea>
                                 </div>
                             </div>
 
@@ -309,6 +324,8 @@
 
                         <#--                        <input type="hidden" name="_csrf" value="${_csrf.token}">-->
                         <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="../delete/${cinemaId}" class="btn btn-primary">Delete</a>
+                        <a href="../list?size=8" class="btn btn-primary">Back to List</a>
                     </div>
                 </form>
             </div>

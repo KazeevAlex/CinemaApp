@@ -26,7 +26,7 @@ public class CinemaDomain {
     @Column(name = "gallery_image")
     private Set<String> galleryImages;
 
-    @OneToMany(mappedBy = "cinema")
+    @OneToMany(mappedBy = "cinema", cascade = CascadeType.REMOVE)
     private Set<HallDomain> halls;
 
     @Embedded

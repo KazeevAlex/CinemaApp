@@ -3,13 +3,17 @@ package com.app.controller.admin.cinema;
 import com.app.domain.SeoBlock;
 import com.app.domain.cinema.Address;
 import com.app.domain.cinema.CinemaDomain;
+import com.app.domain.film.FilmDomain;
+import com.app.domain.film.Type;
 import com.app.service.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
@@ -19,6 +23,7 @@ import java.util.Set;
 public class CinemaController {
 
     CinemaService cinemaService;
+
     @Autowired
     public CinemaController(CinemaService cinemaService) {
         this.cinemaService = cinemaService;
@@ -63,6 +68,63 @@ public class CinemaController {
 
         cinemaService.saveCinema(cinemaDomain);
 
-        return "redirect:/admin/film/list?size=8";
+        return "redirect:/admin/cinema/list?size=8";
+    }
+
+    @GetMapping("/list")
+    public String getFilmList(
+            Model model,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        Page<CinemaDomain> page = cinemaService.findAll(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/admin/cinema/list");
+        return "admin/cinema/cinema_list";
+    }
+
+    @GetMapping("/edit/{cinemaId}")
+    public String getFilmEditPage(
+            Model model,
+            @PathVariable Long cinemaId
+    ) {
+        model.addAttribute("cinema", cinemaService.getCinemaById(cinemaId));
+        return "admin/cinema/cinema_edit";
+    }
+
+    @PostMapping("/edit/{cinemaId}")
+    public String editCinema(
+            @PathVariable Long cinemaId,
+            @RequestParam String name,
+            @RequestParam MultipartFile logoImage,
+            @RequestParam MultipartFile topBannerImage,
+            @RequestParam MultipartFile[] galleryImages,
+            @RequestParam String description,
+            @RequestParam String conditions,
+
+            @RequestParam String city,
+            @RequestParam String street,
+            @RequestParam String build,
+            @RequestParam String email,
+            @RequestParam String mainPhone,
+            @RequestParam String additionalPhone,
+            @RequestParam String mapCoordinate,
+
+            @RequestParam String seoUrl,
+            @RequestParam String seoTitle,
+            @RequestParam String seoKeywords,
+            @RequestParam String seoDescription
+    ) {
+        cinemaService.editAndSaveCinema(
+                cinemaId, name, description, conditions, logoImage, topBannerImage, galleryImages,
+                city, street, build, email, mainPhone, additionalPhone, mapCoordinate,
+                seoUrl, seoTitle, seoKeywords, seoDescription);
+        return "redirect:/admin/cinema/list?size=8";
+    }
+
+
+    @GetMapping("/delete/{cinemaId}")
+    public String deleteFilm(@PathVariable Long cinemaId) {
+        cinemaService.deleteCinemaById(cinemaId);
+        return "redirect:/admin/cinema/list?size=8";
     }
 }
