@@ -147,31 +147,26 @@
                             <#--Hall tab-->
                             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-profile-tab">
-                                <div class="callout callout-warning">
-                                    <h5>First finish creating a cinema please!</h5>
 
-                                    <p>You will be able to create and add a hall for this cinema after saving.
-                                        To do this, after saving, go to the "Cinema List" page and click "Edit" for the required cinema.</p>
-                                </div>
-                                <#--<table class="table">
+                                <table class="table">
                                     <thead>
                                     <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Task</th>
-                                        <th>Progress</th>
+                                        <th style="width: 10px">Id</th>
+                                        <th>Hall Name</th>
+                                        <th>Number of Rows</th>
+                                        <th>Number of Seats</th>
+                                        <th>Number of Active Sessions</th>
                                         <th style="width: 82px"></th>
                                         <th style="width: 95px"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
+                                        <td>48</td>
+                                        <td>Best Hall</td>
+                                        <td>12</td>
+                                        <td>150</td>
+                                        <td>7</td>
                                         <td>
                                             <a class="btn btn-info btn-sm" href="#">
                                                 <i class="fas fa-pencil-alt">
@@ -188,7 +183,8 @@
                                         </td>
                                     </tr>
                                     </tbody>
-                                </table>-->
+                                </table>
+                                <a href="/admin/hall/add" class="btn btn-info">Add Hall</a>
                             </div>
                             <#--Address tab-->
                             <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"

@@ -7,13 +7,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Add Film</h1>
+                    <h1>Edit Film</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">Film</li>
-                        <li class="breadcrumb-item active">Add</li>
+                        <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div>
             </div>

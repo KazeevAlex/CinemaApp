@@ -2,35 +2,40 @@ package com.app.domain.cinema.hall;
 
 import com.app.domain.SeoBlock;
 import com.app.domain.cinema.CinemaDomain;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "hall")
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class HallDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
-    private String description;
-    private String schemaImage;
+    @NonNull private String name;
+    @NonNull private String description;
+    @NonNull private String schemaImage;
 
     @Column(name = "top_banner")
-    private String topBanner;
+    @NonNull private String topBanner;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "hall_gallery_images", joinColumns = @JoinColumn(name = "hall_id"))
     @Column(name = "gallery_image")
-    private Set<String> galleryImages;
+    @NonNull private Set<String> galleryImages;
 
     @OneToMany(mappedBy = "hall")
-    private Set<PlaceDomain> places;
+    @NonNull private Set<PlaceDomain> places;
 
     @ManyToOne
     @JoinColumn(name = "cinema_id", nullable = false)
-    private CinemaDomain cinema;
+    @NonNull private CinemaDomain cinema;
 
     @Embedded
     @AttributeOverrides({
@@ -40,5 +45,5 @@ public class HallDomain {
             @AttributeOverride(name = "description", column = @Column(name = "seo_description"))
 
     })
-    private SeoBlock seoBlock;
+    @NonNull private SeoBlock seoBlock;
 }

@@ -21,6 +21,7 @@ import java.util.Set;
 public class FilmController {
 
     FilmService filmService;
+
     @Autowired
     public FilmController(FilmService filmService) {
         this.filmService = filmService;
@@ -46,12 +47,13 @@ public class FilmController {
             @RequestParam String seoDescription
 
     ) {
+        String mainImg = filmService.saveImage(mainImage);
+        Set<String> gallery = filmService.saveImageArray(galleryImages);
         Set<Type> types = filmService.convertStringArrayToTypeSet(type);
+
         SeoBlock seoBlock = new SeoBlock(seoUrl, seoTitle, seoKeywords, seoDescription);
 
-        FilmDomain filmDomain = new FilmDomain(name, types, trailerLink, description, seoBlock);
-
-        filmService.saveFilmImages(filmDomain, mainImage, galleryImages);
+        FilmDomain filmDomain = new FilmDomain(name, description, mainImg, gallery, trailerLink, types, seoBlock);
 
         filmService.saveFilm(filmDomain);
 
@@ -77,7 +79,6 @@ public class FilmController {
         model.addAttribute("types", Type.values());
         model.addAttribute("film", filmService.getFilmById(filmId));
         model.addAttribute("filmTypes", filmService.getFilmById(filmId).getTypes());
-
         return "admin/film/film_edit";
     }
 
@@ -95,28 +96,10 @@ public class FilmController {
             @RequestParam String seoKeywords,
             @RequestParam String seoDescription
     ) {
-        FilmDomain filmDomain = filmService.getFilmById(filmId);
 
-        filmDomain.setName(name);
-
-        filmService.changeValuesOfTypeSet(filmDomain, type);
-
-        filmDomain.setTrailerLink(trailerLink);
-        filmDomain.setDescription(description);
-        filmDomain.getSeoBlock().setUrl(seoUrl);
-        filmDomain.getSeoBlock().setTitle(seoTitle);
-        filmDomain.getSeoBlock().setKeywords(seoKeywords);
-        filmDomain.getSeoBlock().setDescription(seoDescription);
-
-        if (!(mainImage == null) && !mainImage.isEmpty())
-            filmService.changeMainImage(filmDomain, mainImage);
-
-        if (!(galleryImages == null) && !(galleryImages.length == 0)
-                && !galleryImages[0].isEmpty() && !(galleryImages[0] == null))
-            filmService.changeGalleryImages(filmDomain, galleryImages);
-
-        filmService.saveFilm(filmDomain);
-
+        filmService.editAndSaveFilm(
+                filmId, name, description, mainImage, type, trailerLink, galleryImages,
+                seoUrl, seoTitle, seoKeywords, seoDescription);
         return "redirect:/admin/film/list";
     }
 

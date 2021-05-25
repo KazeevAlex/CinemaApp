@@ -50,8 +50,6 @@ public class CinemaService {
             String seoUrl, String seoTitle, String seoKeywords, String seoDescription //seo block 
     ) {
         CinemaDomain cinema = getCinemaById(cinemaId);
-        Address address = cinema.getAddress();
-        SeoBlock seoBlock = cinema.getSeoBlock();
 
         cinema.setName(name);
         cinema.setDescription(description);
@@ -74,17 +72,8 @@ public class CinemaService {
             }
         }
 
-        address.setCity(city);
-        address.setStreet(street);
-        address.setBuild(build);
-        address.setMainPhone(mainPhone);
-        address.setAdditionalPhone(additionalPhone);
-        address.setMapCoordinate(mapCoordinate);
-
-        seoBlock.setUrl(seoUrl);
-        seoBlock.setTitle(seoTitle);
-        seoBlock.setKeywords(seoKeywords);
-        seoBlock.setDescription(seoDescription);
+        cinema.setAddress(new Address(city, street, build, email, mainPhone, additionalPhone, mapCoordinate));
+        cinema.setSeoBlock(new SeoBlock(seoUrl, seoTitle, seoKeywords, seoDescription));
 
         saveCinema(cinema);
     }

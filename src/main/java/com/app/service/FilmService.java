@@ -1,5 +1,8 @@
 package com.app.service;
 
+import com.app.domain.SeoBlock;
+import com.app.domain.cinema.Address;
+import com.app.domain.cinema.CinemaDomain;
 import com.app.domain.film.FilmDomain;
 import com.app.domain.film.Type;
 import com.app.repos.FilmRepo;
@@ -20,6 +23,7 @@ public class FilmService {
     private String uploadPath;
 
     FilmRepo filmRepo;
+
     @Autowired
     public FilmService(FilmRepo filmRepo) {
         this.filmRepo = filmRepo;
@@ -32,9 +36,8 @@ public class FilmService {
     public void deleteFilmById(Long filmId) {
         FilmDomain filmDomain = filmRepo.findById(filmId).get();
 
-        deleteImages(filmDomain.getMainImage());
-        for (String imageString : filmDomain.getGalleryImages())
-            deleteImages(imageString);
+        deleteImage(filmDomain.getMainImage());
+        deleteImageSet(filmDomain.getGalleryImages());
 
         filmRepo.deleteById(filmId);
     }
@@ -47,7 +50,6 @@ public class FilmService {
         return filmRepo.findAll(pageable);
     }
 
-
     public Set<Type> convertStringArrayToTypeSet(String[] typesInStrings) {
         Set<Type> typeSet = new HashSet<>();
 
@@ -57,46 +59,34 @@ public class FilmService {
         return typeSet;
     }
 
-    public void changeValuesOfTypeSet(FilmDomain filmDomain, String[] typesInString) {
-        Set<Type> typeSet = filmDomain.getTypes();
-        typeSet.clear();
-        for (String type : typesInString)
-            typeSet.add(Type.valueOf(type));
-    }
+    public void editAndSaveFilm(Long filmId,
+                                String name, String description, MultipartFile mainImage, String[] type,  //main information
+                                String trailerLink, MultipartFile[] gallery,                              //main information
+                                String seoUrl, String seoTitle, String seoKeywords, String seoDescription //seo block
+    ) {
+        FilmDomain film = getFilmById(filmId);
 
-    public void saveFilmImages(FilmDomain filmDomain, MultipartFile mainImage, MultipartFile[] galleryImages) {
-        if (mainImage != null && !mainImage.getOriginalFilename().isEmpty() && galleryImages != null && galleryImages.length != 0) {
+        film.setName(name);
+        film.setDescription(description);
+        film.setTrailerLink(trailerLink);
 
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists())
-                uploadDir.mkdir();
+        film.setTypes(convertStringArrayToTypeSet(type));
 
-            String resultFilename = saveImage(mainImage);
-            filmDomain.setMainImage(resultFilename);
-
-            Set<String> galleryImageSet = new HashSet<>();
-            for (MultipartFile galleryImage : galleryImages) {
-                resultFilename = saveImage(galleryImage);
-                galleryImageSet.add(resultFilename);
-            }
-
-            filmDomain.setGalleryImages(galleryImageSet);
+        if (!(mainImage == null) && !mainImage.isEmpty()) {
+            deleteImage(film.getMainImage());
+            film.setMainImage(saveImage(mainImage));
         }
-    }
 
-    public void changeMainImage(FilmDomain filmDomain, MultipartFile newImage) {
-        File oldImage = new File(uploadPath + "/" + filmDomain.getMainImage());
-        if (oldImage.delete())
-            filmDomain.setMainImage(saveImage(newImage));
-    }
+        if (!(gallery == null) && !(gallery.length == 0)) {
+            if (!gallery[0].isEmpty() && !(gallery[0] == null)) {
+                deleteImageSet(film.getGalleryImages());
+                film.setGalleryImages(saveImageArray(gallery));
+            }
+        }
 
-    public void changeGalleryImages(FilmDomain filmDomain, MultipartFile[] newGalleryImages) {
-        Set<String> galleryImages = filmDomain.getGalleryImages();
-        for (String imageName : galleryImages)
-            deleteImages(imageName);
-        galleryImages.clear();
-        for (MultipartFile galleryImage : newGalleryImages)
-            galleryImages.add(saveImage(galleryImage));
+        film.setSeoBlock(new SeoBlock(seoUrl, seoTitle, seoKeywords, seoDescription));
+
+        saveFilm(film);
     }
 
     public String saveImage(MultipartFile image) {
@@ -112,8 +102,20 @@ public class FilmService {
         return resultFilename;
     }
 
-    private void deleteImages(String imageName) {
+    public Set<String> saveImageArray(MultipartFile[] imageArray) {
+        Set<String> imageSet = new HashSet<>();
+        for (MultipartFile image : imageArray)
+            imageSet.add(saveImage(image));
+        return imageSet;
+    }
+
+    private void deleteImage(String imageName) {
         File imageFile = new File(uploadPath + "/" + imageName);
         imageFile.delete();
+    }
+
+    private void deleteImageSet(Set<String> gallery) {
+        for (String image : gallery)
+            deleteImage(image);
     }
 }
