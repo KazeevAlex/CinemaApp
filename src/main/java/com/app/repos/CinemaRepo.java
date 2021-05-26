@@ -1,12 +1,11 @@
 package com.app.repos;
 
 import com.app.domain.cinema.CinemaDomain;
-import com.app.domain.film.FilmDomain;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CinemaRepo extends CrudRepository<CinemaDomain, Long> {
+public interface CinemaRepo extends PagingAndSortingRepository<CinemaDomain, Long> {
 
     Page<CinemaDomain> findAll(Pageable pageable);
 

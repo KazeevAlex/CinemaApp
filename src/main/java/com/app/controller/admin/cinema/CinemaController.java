@@ -64,7 +64,7 @@ public class CinemaController {
         Address address = new Address(city, street, build, email, mainPhone, additionalPhone, mapCoordinate);
         SeoBlock seoBlock = new SeoBlock(seoUrl, seoTitle, seoKeywords, seoDescription);
 
-        CinemaDomain cinemaDomain = new CinemaDomain(name, description, conditions, logo, topBanner, gallery, address, seoBlock);
+        CinemaDomain cinemaDomain = new CinemaDomain(name, description, topBanner, gallery, seoBlock, conditions, logo,address);
 
         cinemaService.saveCinema(cinemaDomain);
 

@@ -30,8 +30,8 @@
                     <#list page.content as cinema>
                         <div class="col">
                             <div class="card ">
-                                <#if cinema.getTopBanner??>
-                                    <img class="card-img-top" src="/img/${cinema.getTopBanner()}">
+                                <#if cinema.getMainImage??>
+                                    <img class="card-img-top" src="/img/${cinema.getMainImage()}">
                                 <#else >
                                     <svg class="bd-placeholder-img card-img-top" width="100%" height="140"
                                          xmlns="http://www.w3.org/2000/svg" role="img"

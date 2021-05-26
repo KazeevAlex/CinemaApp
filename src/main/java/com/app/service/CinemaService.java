@@ -61,8 +61,8 @@ public class CinemaService {
         }
 
         if (!(topBanner == null) && !topBanner.isEmpty()) {
-            deleteImage(cinema.getTopBanner());
-            cinema.setTopBanner(saveImage(topBanner));
+            deleteImage(cinema.getMainImage());
+            cinema.setMainImage(saveImage(topBanner));
         }
 
         if (!(gallery == null) && !(gallery.length == 0)) {
@@ -82,7 +82,7 @@ public class CinemaService {
         CinemaDomain cinemaDomain = cinemaRepo.findById(cinemaId).get();
 
         deleteImage(cinemaDomain.getLogo());
-        deleteImage(cinemaDomain.getTopBanner());
+        deleteImage(cinemaDomain.getMainImage());
         deleteImageSet(cinemaDomain.getGalleryImages());
 
         cinemaRepo.deleteById(cinemaId);
