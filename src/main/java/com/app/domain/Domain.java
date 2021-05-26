@@ -23,7 +23,7 @@ public abstract class Domain {
 
     @Column(name = "main_image")
     @NonNull
-    private String mainImage; // also Top Banner
+    private String mainImage; // also as Top Banner
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "gallery_images", joinColumns = @JoinColumn(name = "entity_id"))
