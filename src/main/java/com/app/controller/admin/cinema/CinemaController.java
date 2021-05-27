@@ -4,7 +4,7 @@ import com.app.domain.Domain;
 import com.app.domain.SeoBlock;
 import com.app.domain.cinema.Address;
 import com.app.domain.cinema.CinemaDomain;
-import com.app.service.CinemaService;
+import com.app.service.cinema.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

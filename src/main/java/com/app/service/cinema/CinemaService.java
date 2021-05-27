@@ -1,4 +1,4 @@
-package com.app.service;
+package com.app.service.cinema;
 
 import com.app.domain.SeoBlock;
 import com.app.domain.cinema.Address;
@@ -12,18 +12,22 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class CinemaService extends com.app.service.Service {
     @Autowired
-    public CinemaService(CinemaRepo repo) { super((Repo) repo); }
+    public CinemaService(CinemaRepo cinemaRepo) {
+        super((Repo) cinemaRepo);
+    }
 
-    public void editAndSaveCinema( Long cinemaId,
-            String name, String description, String conditions,
-            MultipartFile logo, MultipartFile topBanner, MultipartFile[] gallery,
-            Address address, SeoBlock seoBlock
+    public void editAndSaveCinema(Long cinemaId,
+                                  String name, String description, String conditions,
+                                  MultipartFile logo, MultipartFile topBanner, MultipartFile[] gallery,
+                                  Address address, SeoBlock seoBlock
     ) {
         CinemaDomain cinema = (CinemaDomain) getById(cinemaId);
 
         cinema.setName(name);
         cinema.setDescription(description);
         cinema.setConditions(conditions);
+        cinema.setAddress(address);
+        cinema.setSeoBlock(seoBlock);
 
         if (!(logo == null) && !logo.isEmpty()) {
             deleteImage(cinema.getLogo());
@@ -41,9 +45,6 @@ public class CinemaService extends com.app.service.Service {
                 cinema.setGalleryImages(saveImageArray(gallery));
             }
         }
-
-        cinema.setAddress(address);
-        cinema.setSeoBlock(seoBlock);
 
         save(cinema);
     }

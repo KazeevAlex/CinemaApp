@@ -35,6 +35,7 @@ public class MainController {
         return "greeting";
     }
 
+    /*
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String filter,
                        Model model,
@@ -52,7 +53,9 @@ public class MainController {
 
         return "main";
     }
+    */
 
+    /*
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
@@ -85,4 +88,5 @@ public class MainController {
 
         return "main";
     }
+    */
 }

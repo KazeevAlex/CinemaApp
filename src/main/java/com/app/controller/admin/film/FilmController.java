@@ -1,9 +1,10 @@
 package com.app.controller.admin.film;
 
+import com.app.domain.Domain;
 import com.app.domain.SeoBlock;
 import com.app.domain.film.FilmDomain;
 import com.app.domain.film.Type;
-import com.app.service.FilmService;
+import com.app.service.film.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,9 +54,9 @@ public class FilmController {
 
         SeoBlock seoBlock = new SeoBlock(seoUrl, seoTitle, seoKeywords, seoDescription);
 
-        FilmDomain filmDomain = new FilmDomain(name, description, mainImg, gallery, trailerLink, types, seoBlock);
+        FilmDomain filmDomain = new FilmDomain(name, description, mainImg, gallery, seoBlock, trailerLink, types);
 
-        filmService.saveFilm(filmDomain);
+        filmService.save(filmDomain);
 
         return "redirect:/admin/film/list?size=8";
     }
@@ -65,7 +66,7 @@ public class FilmController {
             Model model,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Page<FilmDomain> filmPage = filmService.findAll(pageable);
+        Page<Domain> filmPage = filmService.getAll(pageable);
         model.addAttribute("page", filmPage);
         model.addAttribute("url", "/admin/film/list");
         return "admin/film/film_list";
@@ -77,8 +78,8 @@ public class FilmController {
             @PathVariable Long filmId
     ) {
         model.addAttribute("types", Type.values());
-        model.addAttribute("film", filmService.getFilmById(filmId));
-        model.addAttribute("filmTypes", filmService.getFilmById(filmId).getTypes());
+        model.addAttribute("film", filmService.getById(filmId));
+        model.addAttribute("filmTypes", ((FilmDomain) filmService.getById(filmId)).getTypes());
         return "admin/film/film_edit";
     }
 
@@ -91,21 +92,22 @@ public class FilmController {
             @RequestParam String trailerLink,
             @RequestParam String description,
             @RequestParam(required = false) MultipartFile[] galleryImages,
+
             @RequestParam String seoUrl,
             @RequestParam String seoTitle,
             @RequestParam String seoKeywords,
             @RequestParam String seoDescription
     ) {
-
+        SeoBlock seoBlock = new SeoBlock(seoUrl, seoTitle, seoKeywords, seoDescription);
         filmService.editAndSaveFilm(
                 filmId, name, description, mainImage, type, trailerLink, galleryImages,
-                seoUrl, seoTitle, seoKeywords, seoDescription);
-        return "redirect:/admin/film/list";
+                seoBlock);
+        return "redirect:/admin/film/list?size=8";
     }
 
     @GetMapping("/delete/{filmId}")
     public String deleteFilm(@PathVariable Long filmId) {
-        filmService.deleteFilmById(filmId);
+        filmService.deleteById(filmId);
         return "redirect:/admin/film/list?size=8";
     }
 }

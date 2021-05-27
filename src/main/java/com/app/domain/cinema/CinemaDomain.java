@@ -32,8 +32,8 @@ public class CinemaDomain extends Domain {
     public CinemaDomain(
             @NonNull String name, @NonNull String description, @NonNull String mainImage,
             @NonNull Set<String> galleryImages, @NonNull SeoBlock seoBlock, String conditions,
-            String logo, Address address)
-    {
+            String logo, Address address
+    ) {
         super(name, description, mainImage, galleryImages, seoBlock);
         this.conditions = conditions;
         this.logo = logo;
