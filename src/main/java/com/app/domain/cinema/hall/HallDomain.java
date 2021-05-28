@@ -3,6 +3,8 @@ package com.app.domain.cinema.hall;
 import com.app.domain.Domain;
 import com.app.domain.SeoBlock;
 import com.app.domain.cinema.CinemaDomain;
+import com.app.domain.cinema.hall.seat.HallSeatsBuilder;
+import com.app.domain.cinema.hall.seat.SeatDomain;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,8 +19,8 @@ public class HallDomain extends Domain {
 
     private String schemaImage;
 
-    @OneToMany(mappedBy = "hall")
-    private Set<PlaceDomain> places;
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.REMOVE)
+    private Set<SeatDomain> seats;
 
     @ManyToOne
     @JoinColumn(name = "cinema_id", nullable = false)
@@ -27,11 +29,21 @@ public class HallDomain extends Domain {
     public HallDomain(
             @NonNull String name, @NonNull String description, @NonNull String mainImage,
             @NonNull Set<String> galleryImages, @NonNull SeoBlock seoBlock,
-            String schemaImage, Set<PlaceDomain> places, CinemaDomain cinema
+            String schemaImage, String hallType, CinemaDomain cinema
     ) {
         super(name, description, mainImage, galleryImages, seoBlock);
         this.schemaImage = schemaImage;
-        this.places = places;
         this.cinema = cinema;
+        HallSeatsBuilder hallSeatsBuilder = new HallSeatsBuilder();
+        switch (HallType.valueOf(hallType)) {
+            case ECONOMY:
+                this.seats = hallSeatsBuilder.createHallSeats(20);
+                break;
+            case COMFORT:
+                this.seats = hallSeatsBuilder.createHallSeats(12);
+                break;
+            case BUSINESS:
+                this.seats = hallSeatsBuilder.createHallSeats(6);
+        }
     }
 }

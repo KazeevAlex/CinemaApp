@@ -184,7 +184,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a href="/admin/hall/add" class="btn btn-info">Add Hall</a>
+                                <a href="/admin/hall/add?cinemaId=${cinemaId}" class="btn btn-info">Add Hall</a>
                             </div>
                             <#--Address tab-->
                             <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"

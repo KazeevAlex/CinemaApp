@@ -1,11 +1,11 @@
 package com.app.domain.film;
 
-public enum Type {
+public enum FilmType {
     IMAX("IMAX"), D3("3D"), D2("2D");
 
-    private String alias;
+    private final String alias;
 
-    Type(String alias) {
+    FilmType(String alias) {
         this.alias = alias;
     }
 

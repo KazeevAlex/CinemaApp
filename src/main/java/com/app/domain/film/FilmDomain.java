@@ -17,15 +17,15 @@ public class FilmDomain extends Domain {
     @Column(name = "trailer_link")
     private String trailerLink;
 
-    @ElementCollection(targetClass = Type.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = FilmType.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "film_type", joinColumns = @JoinColumn(name = "film_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Type> types;
+    private Set<FilmType> types;
 
     public FilmDomain(
             @NonNull String name, @NonNull String description, @NonNull String mainImage,
             @NonNull Set<String> galleryImages, @NonNull SeoBlock seoBlock,
-            String trailerLink, Set<Type> types
+            String trailerLink, Set<FilmType> types
     ) {
         super(name, description, mainImage, galleryImages, seoBlock);
         this.trailerLink = trailerLink;

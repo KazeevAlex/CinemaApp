@@ -3,7 +3,7 @@ package com.app.controller.admin.film;
 import com.app.domain.Domain;
 import com.app.domain.SeoBlock;
 import com.app.domain.film.FilmDomain;
-import com.app.domain.film.Type;
+import com.app.domain.film.FilmType;
 import com.app.service.film.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +30,7 @@ public class FilmController {
 
     @GetMapping("/add")
     public String getFilmAddPage(Model model) {
-        model.addAttribute("types", Type.values());
+        model.addAttribute("types", FilmType.values());
         return "admin/film/film_add";
     }
 
@@ -50,7 +50,7 @@ public class FilmController {
     ) {
         String mainImg = filmService.saveImage(mainImage);
         Set<String> gallery = filmService.saveImageArray(galleryImages);
-        Set<Type> types = filmService.convertStringArrayToTypeSet(type);
+        Set<FilmType> types = filmService.convertStringArrayToTypeSet(type);
 
         SeoBlock seoBlock = new SeoBlock(seoUrl, seoTitle, seoKeywords, seoDescription);
 
@@ -77,7 +77,7 @@ public class FilmController {
             Model model,
             @PathVariable Long filmId
     ) {
-        model.addAttribute("types", Type.values());
+        model.addAttribute("types", FilmType.values());
         model.addAttribute("film", filmService.getById(filmId));
         model.addAttribute("filmTypes", ((FilmDomain) filmService.getById(filmId)).getTypes());
         return "admin/film/film_edit";

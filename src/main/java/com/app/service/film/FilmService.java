@@ -2,21 +2,15 @@ package com.app.service.film;
 
 import com.app.domain.SeoBlock;
 import com.app.domain.film.FilmDomain;
-import com.app.domain.film.Type;
+import com.app.domain.film.FilmType;
 import com.app.repos.FilmRepo;
 import com.app.repos.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class FilmService extends com.app.service.Service {
@@ -26,11 +20,11 @@ public class FilmService extends com.app.service.Service {
         super((Repo) filmRepo);
     }
 
-    public Set<Type> convertStringArrayToTypeSet(String[] typesInStrings) {
-        Set<Type> typeSet = new HashSet<>();
+    public Set<FilmType> convertStringArrayToTypeSet(String[] typesInStrings) {
+        Set<FilmType> typeSet = new HashSet<>();
 
         for (String type : typesInStrings)
-            typeSet.add(Type.valueOf(type));
+            typeSet.add(FilmType.valueOf(type));
 
         return typeSet;
     }

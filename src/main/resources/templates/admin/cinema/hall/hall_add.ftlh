@@ -51,6 +51,8 @@
                             <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-home-tab">
 
+                                <input type="hidden" name="cinemaId" value="${cinemaId}">
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <!-- Hall Title -->
@@ -87,7 +89,7 @@
                                             <label for="exampleInputFile">Top Banner Image</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" name="topBannerImage"
+                                                    <input type="file" name="mainImage"
                                                            class="custom-file-input requiredField"
                                                            id="exampleInputFile">
                                                     <label class="custom-file-label" for="exampleInputFile">Select the
