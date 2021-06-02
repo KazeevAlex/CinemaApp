@@ -3,25 +3,26 @@ package com.app.service.cinema;
 import com.app.domain.SeoBlock;
 import com.app.domain.cinema.Address;
 import com.app.domain.cinema.CinemaDomain;
-import com.app.repos.CinemaRepo;
+import com.app.repos.cinema.CinemaRepo;
 import com.app.repos.Repo;
+import com.app.service.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class CinemaService extends com.app.service.Service {
+public class CinemaService extends AbstractService {
     @Autowired
     public CinemaService(CinemaRepo cinemaRepo) {
         super((Repo) cinemaRepo);
     }
 
-    public void editAndSaveCinema(Long cinemaId,
+    public void editAndSaveCinema(String cinemaId,
                                   String name, String description, String conditions,
                                   MultipartFile logo, MultipartFile topBanner, MultipartFile[] gallery,
                                   Address address, SeoBlock seoBlock
     ) {
-        CinemaDomain cinema = (CinemaDomain) getById(cinemaId);
+        CinemaDomain cinema = (CinemaDomain) getById(Long.valueOf(cinemaId.replaceAll(",", "")));
 
         cinema.setName(name);
         cinema.setDescription(description);
@@ -50,13 +51,14 @@ public class CinemaService extends com.app.service.Service {
     }
 
     @Override
-    public void deleteById(Long cinemaId) {
-        CinemaDomain cinemaDomain = (CinemaDomain) repo.findById(cinemaId).get();
+    public void deleteById(String cinemaId) {
+        Long id = Long.valueOf(cinemaId.replaceAll(",", ""));
+        CinemaDomain cinemaDomain = (CinemaDomain) repo.findById(id).get();
 
         deleteImage(cinemaDomain.getLogo());
         deleteImage(cinemaDomain.getMainImage());
         deleteImageSet(cinemaDomain.getGalleryImages());
 
-        repo.deleteById(cinemaId);
+        repo.deleteById(id);
     }
 }

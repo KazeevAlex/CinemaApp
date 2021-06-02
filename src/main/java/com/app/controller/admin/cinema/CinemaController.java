@@ -84,15 +84,17 @@ public class CinemaController {
     @GetMapping("/edit/{cinemaId}")
     public String getCinemaEditPage(
             Model model,
-            @PathVariable Long cinemaId
+            @PathVariable String cinemaId
     ) {
-        model.addAttribute("cinema", cinemaService.getById(cinemaId));
+        Long id = Long.valueOf(cinemaId.replaceAll(",", ""));
+        model.addAttribute("cinema", cinemaService.getById(id));
+        model.addAttribute("halls", ((CinemaDomain) cinemaService.getById(id)).getHalls());
         return "admin/cinema/cinema_edit";
     }
 
     @PostMapping("/edit/{cinemaId}")
     public String editCinema(
-            @PathVariable Long cinemaId,
+            @PathVariable String cinemaId,
             @RequestParam String name,
             @RequestParam MultipartFile logoImage,
             @RequestParam MultipartFile topBannerImage,
@@ -124,7 +126,7 @@ public class CinemaController {
 
 
     @GetMapping("/delete/{cinemaId}")
-    public String deleteCinema(@PathVariable Long cinemaId) {
+    public String deleteCinema(@PathVariable String cinemaId) {
         cinemaService.deleteById(cinemaId);
         return "redirect:/admin/cinema/list?size=8";
     }

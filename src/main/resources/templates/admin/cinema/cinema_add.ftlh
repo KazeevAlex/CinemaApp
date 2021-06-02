@@ -151,42 +151,6 @@
                                     <p>You will be able to create and add a hall for this cinema after saving.
                                         To do this, after saving, go to the "Cinema List" page and click "Edit" for the required cinema.</p>
                                 </div>
-                                <#--<table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Task</th>
-                                        <th>Progress</th>
-                                        <th style="width: 82px"></th>
-                                        <th style="width: 95px"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-info btn-sm" href="#">
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-danger btn-sm" href="#">
-                                                <i class="fas fa-trash">
-                                                </i>
-                                                Delete
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>-->
                             </div>
                             <#--Address tab-->
                             <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"

@@ -5,6 +5,7 @@ import com.app.domain.film.FilmDomain;
 import com.app.domain.film.FilmType;
 import com.app.repos.FilmRepo;
 import com.app.repos.Repo;
+import com.app.service.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class FilmService extends com.app.service.Service {
+public class FilmService extends AbstractService {
 
     @Autowired
     public FilmService(FilmRepo filmRepo) {
@@ -29,12 +30,13 @@ public class FilmService extends com.app.service.Service {
         return typeSet;
     }
 
-    public void editAndSaveFilm(Long filmId,
+    public void editAndSaveFilm(String filmId,
                                 String name, String description, MultipartFile mainImage,
                                 String[] type, String trailerLink, MultipartFile[] gallery,
                                 SeoBlock seoBlock
     ) {
-        FilmDomain film = (FilmDomain) getById(filmId);
+        Long id = Long.valueOf(filmId.replaceAll(",", ""));
+        FilmDomain film = (FilmDomain) getById(id);
 
         film.setName(name);
         film.setDescription(description);
@@ -57,12 +59,14 @@ public class FilmService extends com.app.service.Service {
         save(film);
     }
 
-    public void deleteById(Long filmId) {
-        FilmDomain filmDomain = (FilmDomain) repo.findById(filmId).get();
+    @Override
+    public void deleteById(String filmId) {
+        Long id = Long.valueOf(filmId.replaceAll(",", ""));
+        FilmDomain filmDomain = (FilmDomain) repo.findById(id).get();
 
         deleteImage(filmDomain.getMainImage());
         deleteImageSet(filmDomain.getGalleryImages());
 
-        repo.deleteById(filmId);
+        repo.deleteById(id);
     }
 }

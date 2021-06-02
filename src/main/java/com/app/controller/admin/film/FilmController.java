@@ -75,17 +75,18 @@ public class FilmController {
     @GetMapping("/edit/{filmId}")
     public String getFilmEditPage(
             Model model,
-            @PathVariable Long filmId
+            @PathVariable String filmId
     ) {
+        Long id = Long.valueOf(filmId.replaceAll(",", ""));
         model.addAttribute("types", FilmType.values());
-        model.addAttribute("film", filmService.getById(filmId));
-        model.addAttribute("filmTypes", ((FilmDomain) filmService.getById(filmId)).getTypes());
+        model.addAttribute("film", filmService.getById(id));
+        model.addAttribute("filmTypes", ((FilmDomain) filmService.getById(id)).getTypes());
         return "admin/film/film_edit";
     }
 
     @PostMapping("/edit/{filmId}")
     public String editFilm(
-            @PathVariable Long filmId,
+            @PathVariable String filmId,
             @RequestParam String name,
             @RequestParam(required = false) MultipartFile mainImage,
             @RequestParam String[] type,
@@ -106,7 +107,7 @@ public class FilmController {
     }
 
     @GetMapping("/delete/{filmId}")
-    public String deleteFilm(@PathVariable Long filmId) {
+    public String deleteFilm(@PathVariable String filmId) {
         filmService.deleteById(filmId);
         return "redirect:/admin/film/list?size=8";
     }

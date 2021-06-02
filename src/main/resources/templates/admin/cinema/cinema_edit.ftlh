@@ -161,27 +161,29 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>48</td>
-                                        <td>Best Hall</td>
-                                        <td>12</td>
-                                        <td>150</td>
-                                        <td>7</td>
-                                        <td>
-                                            <a class="btn btn-info btn-sm" href="#">
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-danger btn-sm" href="#">
-                                                <i class="fas fa-trash">
-                                                </i>
-                                                Delete
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    <#list halls as hall>
+                                        <tr>
+                                            <td>${hall.getId()}</td>
+                                            <td>${hall.getName()}</td>
+                                            <td>12</td>
+                                            <td>150</td>
+                                            <td>7</td>
+                                            <td>
+                                                <a class="btn btn-info btn-sm" href="/admin/hall/edit/${hall.getId()}">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm" href="/admin/hall/delete/${hall.getId()}">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </#list>
                                     </tbody>
                                 </table>
                                 <a href="/admin/hall/add?cinemaId=${cinemaId}" class="btn btn-info">Add Hall</a>

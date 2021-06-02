@@ -42,7 +42,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" action="add" enctype="multipart/form-data" id="filmForm"
+                <form method="post" action="../edit/${hall.getId()}" enctype="multipart/form-data" id="filmForm"
                       onsubmit="return validateForm()">
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-one-tabContent">
@@ -51,30 +51,26 @@
                             <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-home-tab">
 
-                                <input type="hidden" name="cinemaId" value="${cinemaId}">
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <!-- Hall Title -->
                                         <div class="form-group">
                                             <label>Hall Name</label>
-                                            <input type="text" name="name" class="form-control requiredField"
+                                            <input type="text" name="name" value="${hall.getName()}" class="form-control requiredField"
                                                    placeholder="Enter cinema name ...">
                                         </div>
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-md-6">
-                                        <!-- Logo Image -->
-                                        <div class="form-group">
+                                        <!-- Hall Type -->
+                                        <#--<div class="form-group">
                                             <label>Hall Type</label>
-                                            <select name="hallType" class="select2 requiredField"
+                                            <select name="hallType" class="select2"
                                                     data-placeholder="To select multiple types at once, hold down the CTRL"
                                                     style="width: 100%;">
-                                                <#list hallType as type>
-                                                    <option value="${type}">${type.getAlias()}</option>
-                                                </#list>
+                                                <option selected value="${type}">${type.getAlias()}</option>
                                             </select>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <!-- /.col -->
                                 </div>
@@ -88,7 +84,7 @@
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" name="mainImage"
-                                                           class="custom-file-input requiredField"
+                                                           class="custom-file-input"
                                                            id="exampleInputFile">
                                                     <label class="custom-file-label" for="exampleInputFile">Select the
                                                         top banner image ...</label>
@@ -104,7 +100,7 @@
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" name="schemaImage"
-                                                           class="custom-file-input requiredField"
+                                                           class="custom-file-"
                                                            id="exampleInputFile">
                                                     <label class="custom-file-label" for="exampleInputFile">Select the
                                                         hall schema image ...</label>
@@ -120,7 +116,7 @@
                                 <div class="form-group">
                                     <label>Description</label>
                                     <textarea class="form-control" rows="3" name="description"
-                                              placeholder="Enter filmDomain description ..."></textarea>
+                                              placeholder="Enter filmDomain description ...">${hall.getDescription()}</textarea>
                                 </div>
 
                                 <!-- Gallery -->
@@ -129,7 +125,7 @@
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" name="galleryImages"
-                                                   class="custom-file-input requiredField" id="exampleInputFile"
+                                                   class="custom-file-input" id="exampleInputFile"
                                                    multiple>
                                             <label class="custom-file-label" for="exampleInputFile">To select
                                                 multiple files, hold down the CTRL or SHIFT key while selecting
@@ -145,23 +141,23 @@
                                  aria-labelledby="custom-tabs-one-settings-tab">
                                 <div class="form-group">
                                     <label>URL</label>
-                                    <input type="text" name="seoUrl" class="form-control"
+                                    <input type="text" name="seoUrl" value="${hall.getSeoBlock().getUrl()}" class="form-control"
                                            placeholder="Enter SEO URL ...">
                                 </div>
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" name="seoTitle" class="form-control"
+                                    <input type="text" name="seoTitle" value="${hall.getSeoBlock().getTitle()}" class="form-control"
                                            placeholder="Enter SEO Title ...">
                                 </div>
                                 <div class="form-group">
                                     <label>Keywords</label>
-                                    <input type="text" name="seoKeywords" class="form-control"
+                                    <input type="text" name="seoKeywords" value="${hall.getSeoBlock().getKeywords()}" class="form-control"
                                            placeholder="Enter SEO keywords ...">
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
                                     <textarea name="seoDescription" class="form-control" rows="3"
-                                              placeholder="Enter SEO description ..."></textarea>
+                                              placeholder="Enter SEO description ...">${hall.getSeoBlock().getDescription()}</textarea>
                                 </div>
                             </div>
 
@@ -173,6 +169,7 @@
 
                         <#--                        <input type="hidden" name="_csrf" value="${_csrf.token}">-->
                         <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="../delete/${hall.getId()}" class="btn btn-primary">Delete</a>
                     </div>
                 </form>
             </div>

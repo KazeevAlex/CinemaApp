@@ -71,7 +71,7 @@
                                     <select name="type" class="select2 requiredField" multiple="multiple" data-placeholder="To select multiple types at once, hold down the CTRL"
                                             style="width: 100%;">
                                         <#list types as type>
-                                            <option value="${type}">${type}</option>
+                                            <option value="${type}">${type.getAlias()}</option>
                                         </#list>
                                     </select>
                                 </div>

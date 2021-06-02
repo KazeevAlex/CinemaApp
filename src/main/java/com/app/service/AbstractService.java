@@ -14,12 +14,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public abstract class Service implements CrudService, ImageService{
+public abstract class AbstractService implements CrudService, ImageService{
     @Value("${upload.path}")
     private String uploadPath;
 
     public final Repo<Domain, Long> repo;
-    public Service(Repo<Domain, Long> repo) { this.repo = repo; }
+    public AbstractService(Repo<Domain, Long> repo) { this.repo = repo; }
 
     @Override
     public void save(Domain domain) {

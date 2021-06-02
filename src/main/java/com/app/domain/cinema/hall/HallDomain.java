@@ -29,11 +29,12 @@ public class HallDomain extends Domain {
     public HallDomain(
             @NonNull String name, @NonNull String description, @NonNull String mainImage,
             @NonNull Set<String> galleryImages, @NonNull SeoBlock seoBlock,
-            String schemaImage, String hallType, CinemaDomain cinema
+            String schemaImage, CinemaDomain cinema
     ) {
         super(name, description, mainImage, galleryImages, seoBlock);
         this.schemaImage = schemaImage;
         this.cinema = cinema;
+        /*
         HallSeatsBuilder hallSeatsBuilder = new HallSeatsBuilder();
         switch (HallType.valueOf(hallType)) {
             case ECONOMY:
@@ -45,5 +46,6 @@ public class HallDomain extends Domain {
             case BUSINESS:
                 this.seats = hallSeatsBuilder.createHallSeats(6);
         }
+        */
     }
 }

@@ -8,9 +8,9 @@ public interface CrudService {
 
     void save(Domain domain);
 
-    Domain getById(Long Id);
+    Domain getById(Long id);
 
     Page<Domain> getAll(Pageable pageable);
 
-    void deleteById(Long cinemaId);
+    void deleteById(String id);
 }
