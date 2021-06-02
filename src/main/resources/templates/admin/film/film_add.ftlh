@@ -109,6 +109,22 @@
                             </div>
                         </div>
 
+                        <!-- Date range -->
+                        <div class="form-group">
+                            <label>Date range:</label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                                </div>
+                                <input type="text" name="date" class="form-control float-right" id="reservation">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+
                     </div>
                     <!-- /.card-body -->
 

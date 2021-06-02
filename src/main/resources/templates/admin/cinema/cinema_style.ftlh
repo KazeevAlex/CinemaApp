@@ -8,7 +8,6 @@
 
 <!-- Select2 -->
 <link rel="stylesheet" href="/static/admin/plugins/select2/css/select2.min.css">
-<link rel="stylesheet" href="/static/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
 <!-- Theme style -->
 <link rel="stylesheet" href="/static/admin/dist/css/adminlte.min.css">

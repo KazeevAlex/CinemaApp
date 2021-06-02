@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Controller
@@ -36,11 +37,13 @@ public class FilmController {
 
     @PostMapping("/add")
     public String addFilm(
+            Model model,
             @RequestParam String name,
             @RequestParam MultipartFile mainImage,
             @RequestParam String[] type,
             @RequestParam String trailerLink,
             @RequestParam String description,
+            @RequestParam String date,
             @RequestParam MultipartFile[] galleryImages,
             @RequestParam String seoUrl,
             @RequestParam String seoTitle,
@@ -54,11 +57,16 @@ public class FilmController {
 
         SeoBlock seoBlock = new SeoBlock(seoUrl, seoTitle, seoKeywords, seoDescription);
 
-        FilmDomain filmDomain = new FilmDomain(name, description, mainImg, gallery, seoBlock, trailerLink, types);
+        LocalDate[] localDates = filmService.convertStringToDate(date);
+
+        FilmDomain filmDomain = new FilmDomain(name, description, mainImg, gallery,
+                seoBlock, trailerLink, types, localDates[0], localDates[1]);
 
         filmService.save(filmDomain);
 
-        return "redirect:/admin/film/list?size=8";
+//        return "redirect:/admin/film/list?size=8";
+        model.addAttribute("date", date);
+        return "admin/cinema/cinema_add";
     }
 
     @GetMapping("/list")

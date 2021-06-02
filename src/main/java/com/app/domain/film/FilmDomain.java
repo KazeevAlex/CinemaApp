@@ -5,6 +5,7 @@ import com.app.domain.SeoBlock;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -22,14 +23,22 @@ public class FilmDomain extends Domain {
     @Enumerated(EnumType.STRING)
     private Set<FilmType> types;
 
+    @Column
+    private LocalDate startDate;
+
+    @Column
+    private LocalDate endDate;
+
     public FilmDomain(
             @NonNull String name, @NonNull String description, @NonNull String mainImage,
             @NonNull Set<String> galleryImages, @NonNull SeoBlock seoBlock,
-            String trailerLink, Set<FilmType> types
+            String trailerLink, Set<FilmType> types, LocalDate startDate, LocalDate endDate
     ) {
         super(name, description, mainImage, galleryImages, seoBlock);
         this.trailerLink = trailerLink;
         this.types = types;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 }
     /*

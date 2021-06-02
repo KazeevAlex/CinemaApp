@@ -9,6 +9,13 @@
 <!-- Select2 -->
 <script src="/static/admin/plugins/select2/js/select2.full.min.js"></script>
 
+<!-- InputMask -->
+<script src="/static/admin/plugins/moment/moment.min.js"></script>
+<!-- date-range-picker -->
+<script src="/static/admin/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/static/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="/static/admin/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -24,10 +31,8 @@
         //Initialize Select2 Elements
         $('.select2').select2()
 
-        //Initialize Select2 Elements
-        $('.select2bs4').select2({
-            theme: 'bootstrap4'
-        })
+        //Date range picker
+        $('#reservation').daterangepicker()
 
         //bs-custom-file-input
         bsCustomFileInput.init();

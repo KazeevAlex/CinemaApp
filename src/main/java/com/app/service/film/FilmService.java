@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,6 +60,17 @@ public class FilmService extends AbstractService {
 
         save(film);
     }
+
+    public LocalDate[] convertStringToDate(String date) {
+        String[] dateArray = date.split("-");
+        LocalDate[] localDates = new LocalDate[2];
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        localDates[0] = LocalDate.parse(dateArray[0].trim(), dateTimeFormatter);
+        localDates[1] = LocalDate.parse(dateArray[1].trim(), dateTimeFormatter);
+
+        return localDates;
+    }
+
 
     @Override
     public void deleteById(String filmId) {
